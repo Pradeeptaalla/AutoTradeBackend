@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Feed Tester</title>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: #eee;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #444;
+            background: #222;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #0f0;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #444;
+        }
+        pre {
+            height: 200px;
+            overflow-y: auto;
+            background: #000;
+            padding: 10px;
+            color: #0f0;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🔥 WebSocket Engine Tester</h1>
+    <p>Testing namespaces: <b>/price</b> and <b>/status</b></p>
+
+    <!-- PRICE BLOCK -->
+    <div class="card">
+        <h2>/price Namespace</h2>
+
+        <button onclick="startPriceFeed()">Start Price Feed</button>
+        <button onclick="stopPriceFeed()">Stop Price Feed</button>
+
+        <pre id="priceLog">Waiting for /price events...</pre>
+    </div>
+
+    <!-- STATUS BLOCK -->
+    <div class="card">
+        <h2>/status Namespace</h2>
+
+        <button onclick="startStatusFeed()">Start Status Feed</button>
+        <button onclick="stopStatusFeed()">Stop Status Feed</button>
+
+        <pre id="statusLog">Waiting for /status events...</pre>
+    </div>
+
+    <script>
+        const BACKEND = "http://localhost:5000";
+
+        function log(el, msg) {
+            const box = document.getElementById(el);
+            box.textContent += "\n" + msg;
+            box.scrollTop = box.scrollHeight;
+        }
+
+        // ---------------------------
+        // CONNECT TO NAMESPACES
+        // ---------------------------
+        const priceSocket = io(BACKEND + "/price");
+        const statusSocket = io(BACKEND + "/status");
+
+        // ---------------------------
+        // PRICE SOCKET EVENTS
+        // ---------------------------
+        priceSocket.on("connect", () => {
+            log("priceLog", "🟢 Connected → /price (sid=" + priceSocket.id + ")");
+        });
+
+        priceSocket.on("server_message", (data) => {
+            log("priceLog", "💬 SERVER_MESSAGE → " + JSON.stringify(data));
+        });
+
+        priceSocket.on("feed_update", (data) => {
+            log("priceLog", "📈 FEED → " + JSON.stringify(data));
+        });
+
+        priceSocket.on("disconnect", () => {
+            log("priceLog", "🔴 Disconnected from /price");
+        });
+
+        // ---------------------------
+        // STATUS SOCKET EVENTS
+        // ---------------------------
+        statusSocket.on("connect", () => {
+            log("statusLog", "🟢 Connected → /status (sid=" + statusSocket.id + ")");
+        });
+
+        statusSocket.on("server_message", (data) => {
+            log("statusLog", "💬 SERVER_MESSAGE → " + JSON.stringify(data));
+        });
+
+        statusSocket.on("feed_update", (data) => {
+            log("statusLog", "📌 FEED → " + JSON.stringify(data));
+        });
+
+        statusSocket.on("disconnect", () => {
+            log("statusLog", "🔴 Disconnected from /status");
+        });
+
+        // ---------------------------
+        // BUTTON HANDLERS
+        // ---------------------------
+        function startPriceFeed() {
+            log("priceLog", "▶️ Sending start_feed");
+            priceSocket.emit("start_feed");
+        }
+
+        function stopPriceFeed() {
+            log("priceLog", "⏹ Sending stop_feed");
+            priceSocket.emit("stop_feed");
+        }
+
+        function startStatusFeed() {
+            log("statusLog", "▶️ Sending start_feed");
+            statusSocket.emit("start_feed");
+        }
+
+        function stopStatusFeed() {
+            log("statusLog", "⏹ Sending stop_feed");
+            statusSocket.emit("stop_feed");
+        }
+    </script>
+
+</body>
+</html>

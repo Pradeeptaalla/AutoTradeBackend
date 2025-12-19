@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "eligible": [
+        {
+            "symbol": "IDEA",
+            "instrument_token": 3677697,
+            "high": 12.0,
+            "low": 11.8,
+            "open": 11.42,
+            "last": 11.96,
+            "percent": 0.33
+        },
+        {
+            "symbol": "HCLTECH",
+            "instrument_token": 1850625,
+            "high": 1690.0,
+            "low": 1680.0,
+            "open": 1675.0,
+            "last": 1642.4,
+            "percent": 2.9
+        },
+        {
+            "symbol": "LT",
+            "instrument_token": 2939649,
+            "high": 4100.0,
+            "low": 4090.0,
+            "open": 4040.1,
+            "last": 4073.5,
+            "percent": 0.65
+        }
+    ],
+    "not_eligible": [],
+    "doji_eligible": [],
+    "errors": [],
+    "total_checked": 3,
+    "websocket_status": "Connected"
+}
