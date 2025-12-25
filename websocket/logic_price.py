@@ -1,6 +1,8 @@
 from state_manager import trading_state as state
 from datetime import datetime
+from logger_config import setup_logger
 
+logger = setup_logger("WEB_SOCKET_LOGIC_PRICE")
 # --------------------------------------------------
 # SAFE FLOAT CONVERTER (VERY IMPORTANT)
 # --------------------------------------------------
@@ -16,7 +18,7 @@ def safe_float(value, default=0.0):
 # --------------------------------------------------
 def price_logic():
 
-    print("Running price logic...")
+    logger.info("Running price logic...")
     kite = state.get("kite")
     live = state.get("live_data", {})
     eligible = state.get("eligible_stocks", [])
@@ -36,7 +38,7 @@ def price_logic():
     if state["position_details"] is None:
         
         try:
-            print("Fetching positions for price logic...")
+            logger.info("Fetching positions for price logic...")
             positions = kite.positions().get("net", [])
             state["position_details"] = positions
         except Exception:
@@ -51,7 +53,7 @@ def price_logic():
     # ==================================================
     # ✅ CASE 1: ACTIVE SELL POSITION
     # ==================================================
-    print(active_pos)
+    logger.info(active_pos)
     
     if active_pos:
         symbol = active_pos.get("tradingsymbol")
@@ -136,7 +138,7 @@ def price_logic():
             })
 
         except Exception as e:
-            print(f"❌ Error in feed loop for /price: {e}")
+            logger.exception(f"❌ Error in feed loop for /price:")
             continue
 
     return {

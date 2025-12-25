@@ -10,7 +10,7 @@ trading_state = {
     "user_id": None,
     "user_name": "Admin",    
     "zerodha_logged_in": False,
-    "max_margin": 50000,                 
+    "max_margin": 550,                 
 
     # ==================================================
     # 🔌 KITE / API OBJECTS
@@ -67,6 +67,9 @@ trading_state = {
     "target_2_percent": 0.02,       # 2% target
     "target_1_enabled": True,
     "target_2_enabled": False,
+    "SQUAREOFF_TIME" : "15:35",
+    "CANDLE_INTERVAL": 15
+
     
    
     

@@ -4,7 +4,9 @@ from state_manager import trading_state as state
 import os
 from telegram import TelegramSender
 import json, pandas as pd
+from logger_config import setup_logger
 
+logger = setup_logger("Util")
 
 USER_CREDENTIALS_FILE =  os.getenv("USER_CREDENTIALS_FILE")
 STOCKS_DATABASE_FILE = os.getenv("STOCKS_DATABASE_FILE")
@@ -15,6 +17,7 @@ STOCKS_DATABASE_FILE = os.getenv("STOCKS_DATABASE_FILE")
 
 def load_user_credentials():
     """Load username/password JSON"""
+    
 
     if not USER_CREDENTIALS_FILE or not os.path.exists(USER_CREDENTIALS_FILE):
         TelegramSender.send_message(
@@ -32,6 +35,7 @@ def load_user_credentials():
         return {}
 
     with open(USER_CREDENTIALS_FILE, "r") as f:
+        
         return json.load(f)
 
 
@@ -54,11 +58,11 @@ def initialize_files():
     if not os.path.exists(STOCKS_DATABASE_FILE):
         df = pd.DataFrame(columns=['symbol', 'instrument_token', 'high', 'low', 'date'])
         save_stocks_database(df)
-        print(f"✓ Created {STOCKS_DATABASE_FILE}")
+        logger.info(f"✓ Created {STOCKS_DATABASE_FILE}")
 
-    print("\n" + "="*60)
-    print("🚀 Trading Bot Backend Starting...")
-    print("="*60 + "\n")
+    logger.info("\n" + "="*60)
+    logger.info("🚀 Trading Bot Backend Starting...")
+    logger.info("="*60 + "\n")
     
     # Initialize files
     initialize_files()
@@ -68,65 +72,82 @@ def initialize_files():
 # 
 # =================================================
 
-def kite_connect(username):
+class KiteSessionError(Exception):
+    """Raised when Kite session is unavailable"""
+    pass
 
-    if state["kite"] is not None:
-        print("Kite instance already exists. Reusing it.")
-        return state["kite"]
+
+def kite_connect(username: str) -> bool:
+    """Ensure Kite session exists and is valid"""
+
+    def _is_valid(kite):
+        try:
+            kite.profile()
+            return True
+        except Exception:
+            return False
+        
+   
+
+    kite = state.get("kite")
+    if kite and _is_valid(kite):
+        return True
+    
+    acc = load_user_credentials().get(username, {})
+    
+    
+    user_id = acc.get("user_id")
+    password = acc.get("zerodha_password")
+    totp_secret = acc.get("totp_secret")
+
+    if not all([user_id, password, totp_secret]):
+        logger.error("Incomplete Zerodha credentials for %s", username)
+        return False
 
     try:
-        print(f"🔑 Initializing KiteConnect for user: {username}")
-        trading_accounts = load_user_credentials()
-        acc = trading_accounts[username]
-        zerodha_user_id = acc.get("user_id")
-        zerodha_password = acc.get("zerodha_password")
-        totp_secret = acc.get("totp_secret")
+        totp = pyotp.TOTP(totp_secret).now()
+        enctoken = get_enctoken(user_id, password, totp)
 
-        if not zerodha_user_id or not zerodha_password or not totp_secret:  
-            print("Incomplete trading account details.")          
-            return None
-        totp_code = pyotp.TOTP(totp_secret).now()
-        enctoken = get_enctoken(zerodha_user_id,zerodha_password,totp_code)        
         kite = KiteApp(enctoken=enctoken)
         profile = kite.profile()
-        margin = kite.margins()['equity']['available']['cash']
-        if margin > state.get("max_margin", 0):
-            margin = margin - 500
 
+        margin = kite.margins()["equity"]["available"]["cash"]
+        if margin > state.get("max_margin", 0):
+            margin -= 500
 
         state["kite"] = kite
         state["enctoken"] = enctoken
-        state["user_id"] = profile.get("user_id", zerodha_user_id)
-        state["zerodha_logged_in"] = True
+        state["user_id"] = profile.get("user_id", user_id)
+        state["user_name"] = profile.get("user_name")
         state["current_user"] = username
-        state["margin"] = margin            
-        state["user_name"] = profile['user_name']
+        state["margin"] = margin
         state["logged_in"] = True
-               
+        state["zerodha_logged_in"] = True
 
+        logger.info("Zerodha login successful | user=%s", username)
+        return True
 
-        return kite  
+    except Exception:
+        logger.exception("Zerodha login failed")
 
-    except Exception as e:
         TelegramSender.send_message(
-                                        (
-                                            "🚨 *ZERODHA LOGIN ERROR*\n"
-                                            "━━━━━━━━━━━━━━━━━━\n"
-                                            "*Status:* FAILED\n"
-                                            "*Stage:* Session Initialization\n"
-                                            "*Reason:* TOTP / authentication failure\n"
-                                            "━━━━━━━━━━━━━━━━━━\n"
-                                            "⚠️ _Check credentials, TOTP secret, or Zerodha availability_"
-                                        ),
-                                        parse_mode="Markdown"
-                                    )
-        return None
+                                            (
+                                                "🚨 *ZERODHA LOGIN ERROR*\n"
+                                                "━━━━━━━━━━━━━━━━━━\n"
+                                                "*Status:* FAILED\n"
+                                                "*Stage:* Session Initialization\n"
+                                                "*Reason:* TOTP / authentication failure\n"
+                                                "━━━━━━━━━━━━━━━━━━\n"
+                                                "⚠️ _Check credentials, TOTP secret, or Zerodha availability_"
+                                            ),
+                                            parse_mode="Markdown"
+                                        )
+        return False
 
 
-
-
-    
-
-    
-
+def get_kite(username: str):
+    """Public accessor used everywhere"""
+    if not kite_connect(username):
+        raise KiteSessionError("Zerodha session unavailable")
+    return state["kite"]
       

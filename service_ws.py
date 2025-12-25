@@ -1,6 +1,11 @@
 # service_ws.py
 from state_manager import trading_state
 from kiteconnect import KiteTicker
+from logger_config import setup_logger
+import threading
+import time
+
+logger = setup_logger("Web_Socket_Manager")
 
 
 class WebSocketManager:
@@ -8,86 +13,133 @@ class WebSocketManager:
         self.kws = None
         self.running = False
         self.connected = False
+        self._lock = threading.Lock()   # 🔒 prevents race conditions
 
+    # ---------------------------------------------------------
+    # SETUP
+    # ---------------------------------------------------------
     def setup(self, api_key, enctoken, user_id):
-        try:
-            access_token = enctoken + "&user_id=" + user_id
-            print("WS Setup →", access_token)
+        with self._lock:
+            try:
+                access_token = f"{enctoken}&user_id={user_id}"
+                logger.info("WS Setup → %s", access_token)
 
-            self.kws = KiteTicker(api_key, access_token)
-            self.kws.on_ticks = self.on_ticks
-            self.kws.on_connect = self.on_connect
-            self.kws.on_close = self.on_close
-            self.kws.on_error = self.on_error
-            return True
-        except Exception as e:
-            print("WS Setup Error:", e)
-            return False
+                self.kws = KiteTicker(api_key, access_token)
+                self.kws.on_ticks = self.on_ticks
+                self.kws.on_connect = self.on_connect
+                self.kws.on_close = self.on_close
+                self.kws.on_error = self.on_error
 
-    def start(self):
-        try:
-            self.running = True
-            self.kws.connect(threaded=True)
-            return True
-        except Exception as e:
-            print("WS Start Error:", e)
-            self.running = False
-            return False
-
-    def subscribe(self, tokens):
-        try:
-            self.kws.subscribe(tokens)
-            self.kws.set_mode(self.kws.MODE_QUOTE, tokens)
-            trading_state["subscribed_tokens"] = tokens
-            return True
-        except Exception as e:
-            print("WS Subscribe Error:", e)
-            return False
-
-    # required STOP METHOD (missing earlier)
-    def stop(self):
-        """Stop WebSocket safely."""
-        try:
-            if self.kws and self.running:
-                print("🛑 Stopping WebSocket connection...")
                 self.running = False
                 self.connected = False
-                self.kws.close()
+                return True
+            except Exception:
+                logger.exception("WS Setup Error")
+                self.kws = None
+                return False
+
+    # ---------------------------------------------------------
+    # START
+    # ---------------------------------------------------------
+    def start(self):
+        with self._lock:
+            if not self.kws:
+                logger.error("WS Start skipped — kws is None")
+                return False
+
+            if self.running:
+                logger.info("WS already running")
+                return True
+
+            try:
+                logger.info("▶ Starting WebSocket connection")
+                self.running = True
+                self.kws.connect(threaded=True)
+                return True
+            except Exception:
+                logger.exception("WS Start Error")
+                self.running = False
+                return False
+
+    # ---------------------------------------------------------
+    # SUBSCRIBE
+    # ---------------------------------------------------------
+    def subscribe(self, tokens):
+        with self._lock:
+            if not self.kws or not self.connected:
+                logger.warning(
+                    "⚠️ WS subscribe skipped — connected=%s kws=%s",
+                    self.connected,
+                    bool(self.kws),
+                )
+                return False
+
+            try:
+                self.kws.subscribe(tokens)
+                self.kws.set_mode(self.kws.MODE_QUOTE, tokens)
+                trading_state["subscribed_tokens"] = tokens
+                logger.info("📡 Subscribed tokens: %s", tokens)
+                return True
+            except Exception:
+                logger.exception("WS Subscribe Error")
+                return False
+
+    # ---------------------------------------------------------
+    # STOP (SAFE)
+    # ---------------------------------------------------------
+    def stop(self):
+        with self._lock:
+            try:
+                if not self.kws:
+                    logger.info("WS stop skipped — kws already None")
+                    return True
+
+                if self.running:
+                    logger.info("🛑 Stopping WebSocket connection...")
+                    try:
+                        self.kws.close()
+                    except Exception:
+                        logger.exception("WS close error")
+
+                # reset state safely
+                self.running = False
+                self.connected = False
+                self.kws = None
 
                 trading_state["websocket_status"] = "Disconnected"
                 trading_state["subscribed_tokens"] = []
-                trading_state["live_data"] = {}
 
+                logger.info("🔴 WebSocket fully stopped")
                 return True
-            return False
-        except Exception as e:
-            print("WS Stop Error:", e)
-            return False
+            except Exception:
+                logger.exception("WS Stop Error")
+                return False
 
-    # --- callback functions ---
+    # ---------------------------------------------------------
+    # CALLBACKS
+    # ---------------------------------------------------------
     def on_connect(self, ws, resp):
-        print("🟢 WS CONNECTED")
+        logger.info("🟢 WS CONNECTED")
         self.connected = True
         trading_state["websocket_status"] = "Connected"
 
     def on_close(self, ws, code, reason):
-        print("🔴 WS CLOSED", code, reason)
+        logger.info("🔴 WS CLOSED | code=%s reason=%s", code, reason)
         self.connected = False
         self.running = False
         trading_state["websocket_status"] = "Disconnected"
 
     def on_error(self, ws, code, reason):
-        print("⚠️ WS ERROR:", code, reason)
+        # 🔥 FIXED logging crash
+        logger.info("⚠️ WS ERROR | code=%s reason=%s", code, reason)
 
+    # ---------------------------------------------------------
+    # TICKS (UNCHANGED BUSINESS LOGIC)
+    # ---------------------------------------------------------
     def on_ticks(self, ws, ticks):
         """
         Zerodha tick callback.
-        Must accept (self, ws, ticks) to stay compatible with kiteconnect.
-        
-        - Keeps previous tick values if new tick does NOT provide them
-        - Deep merges OHLC/depth without breaking structure
-        - Prevents losing values when Zerodha sends partial packets
-        - Safe for eligibility checking, monitoring, and live feed
+        Deep-merge logic preserved EXACTLY as your original.
         """
 
         if not ticks:
@@ -98,54 +150,37 @@ class WebSocketManager:
             if not token:
                 continue
 
-            # Get previous tick if exists
             prev = trading_state["live_data"].get(token, {})
-
-            # New merged tick
             merged = prev.copy()
 
-            # -------------------------
-            # LAST PRICE
-            # -------------------------
             if tick.get("last_price") is not None:
                 merged["last_price"] = tick["last_price"]
 
             if tick.get("last") is not None:
                 merged["last"] = tick["last"]
 
-            # -------------------------
-            # OHLC (deep merge)
-            # -------------------------
             if "ohlc" in tick and isinstance(tick["ohlc"], dict):
                 merged.setdefault("ohlc", {})
                 for k, v in tick["ohlc"].items():
                     if v is not None:
                         merged["ohlc"][k] = v
 
-            # -------------------------
-            # VOLUME
-            # -------------------------
             if tick.get("volume") is not None:
                 merged["volume"] = tick["volume"]
 
-            # -------------------------
-            # DEPTH (BUY/SELL)
-            # -------------------------
             if "depth" in tick and isinstance(tick["depth"], dict):
                 merged.setdefault("depth", {})
                 for side in ("buy", "sell"):
                     if side in tick["depth"]:
                         merged["depth"][side] = tick["depth"][side]
 
-            # -------------------------
-            # TIMESTAMP
-            # -------------------------
             if tick.get("timestamp") is not None:
                 merged["timestamp"] = tick["timestamp"]
 
-            # SAVE FINAL TICK
             trading_state["live_data"][token] = merged
 
 
-# Global Instance
+# ---------------------------------------------------------
+# GLOBAL INSTANCE
+# ---------------------------------------------------------
 ws_manager = WebSocketManager()

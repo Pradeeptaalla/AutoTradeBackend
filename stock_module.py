@@ -6,7 +6,9 @@ from util import load_stocks_database, save_stocks_database
 
 stock_bp = Blueprint("stock", __name__)
 
+from logger_config import setup_logger
 
+logger = setup_logger("Stock_Module")
 
 
 # ==================== HELPER FUNCTIONS ====================
@@ -25,8 +27,7 @@ def add_stock():
         instrument_token = data.get('instrument_token')
         high = data.get('high')     
         low = data.get('low')
-        date_str = data.get('date')  # Format: YYYY-MM-DD
-        
+        date_str = data.get('date')          
         # Validate required fields
         if not all([symbol, instrument_token, high, low, date_str]):
             return jsonify({'success': False,'error': 'All fields are required: symbol, instrument_token, high, low, date'}), 400
@@ -74,6 +75,7 @@ def add_stock():
         })
         
     except Exception as e:
+        logger.exception("Error in Add Stock")
         return jsonify({
             'success': False,
             'error': f'Failed to add stock: {str(e)}'
@@ -103,6 +105,7 @@ def get_stocks():
         return jsonify({'success': True,'stocks': stocks,'count': len(stocks)})
         
     except Exception as e:
+        logger.exception("Error in Get Stocks")
         return jsonify({'success': False,'error': f'Failed to fetch stocks: {str(e)}'}), 500
 
 @stock_bp.route('/delete-stock', methods=['POST'])
@@ -135,6 +138,7 @@ def delete_stock():
         })
         
     except Exception as e:
+        logger.exception("Error in Deleting Stocks")
         return jsonify({
             'success': False,
             'error': f'Failed to delete stock: {str(e)}'
@@ -198,6 +202,7 @@ def update_stock():
         })
 
     except Exception as e:
+        logger.exception("Error In Update Stock")
         return jsonify({
             'success': False,
             'error': f'Failed to update stock: {str(e)}'

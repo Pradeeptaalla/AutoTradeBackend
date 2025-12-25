@@ -1,6 +1,7 @@
 # position_manager.py
 from datetime import datetime, timedelta, time as dt_time
 import time
+from flask import session
 import pytz
 import threading
 
@@ -9,6 +10,11 @@ from state_manager import trading_state as state
 from service_ws import ws_manager
 from telegram.sender import TelegramSender
 
+from logger_config import setup_logger
+from util import get_kite
+
+logger = setup_logger("position_manager")
+
 # ----------------------------
 # Globals
 # ----------------------------
@@ -16,8 +22,7 @@ from telegram.sender import TelegramSender
 _candle_buffers = {}     # { token(int): { ticks: [(ts, price)], current_period_end } }
 
 TZ = pytz.timezone("Asia/Kolkata")
-SQUAREOFF_TIME = dt_time(15, 0, 0)
-CANDLE_INTERVAL = 3      # minutes
+
 
 _monitor_thread = None
 
@@ -28,28 +33,73 @@ _monitor_thread = None
 # PUBLIC API
 # ----------------------------
 def start_position_monitor_handler():
-    print("\n=== START POSITION MONITOR REQUEST ===")
+    logger.info("\n=== START POSITION MONITOR REQUEST ===")
 
     global _monitor_thread
 
-    kite = state.get("kite")
+    kite =get_kite(state["username"])
     positions = kite.positions()["net"]
-
-    
-
-    if state.get("Monitoring_Background"):
-        print("❌ Monitor already running.")    
-        return {"success": False, "error": "Monitor already running"}
 
     if not positions:
         return {"success": False, "error": "No positions found"}
+    
+  
 
-    # Restart WS fresh
-    ws_manager.stop()
-    time.sleep(0.5)
-    ws_manager.start()
-    time.sleep(1)
-    print("WebSocket restarted for position monitoring.")
+    # ============================================================
+    # 🔥 PRODUCTION SAFE WEBSOCKET RESET (UNCHANGED INTENT)
+    # ============================================================
+    if ws_manager.running:
+        logger.info("🧹 Stopping previous WebSocket cleanly")
+        ws_manager.stop()
+        time.sleep(0.5)
+
+    # ------------------------------------------------------------
+    # 5️⃣ Setup WebSocket (UNCHANGED FLOW)
+    # ------------------------------------------------------------
+    if not ws_manager.setup("PradeepApi", state["enctoken"], state["user_id"]):
+        state["engine_status"] = "idle"
+        state["current_step"] = "idle"
+        return {"success": False, "error": "WebSocket setup failed"}
+
+    if not ws_manager.start():
+        state["engine_status"] = "idle"
+        state["current_step"] = "idle"
+        return {"success": False, "error": "WebSocket start failed"}
+
+    # ------------------------------------------------------------
+    # 6️⃣ Wait for WebSocket connection (UNCHANGED)
+    # ------------------------------------------------------------
+    for i in range(20):
+        if ws_manager.connected:
+            logger.info("🟢 WS Connected")
+            break
+        logger.info("⏳ Waiting for WS (%s/20)", i + 1)
+        time.sleep(0.5)
+    else:
+        state["engine_status"] = "idle"
+        state["current_step"] = "idle"
+        return {"success": False, "error": "WebSocket connection failed"}
+
+
+
+    # # Restart WS fresh
+    # # Ensure WebSocket for position monitoring
+    # if not ws_manager.kws:
+    #     logger.info("🔧 Setting up WebSocket for position monitoring")
+    #     ws_manager.setup("PradeepApi", state["enctoken"], state["user_id"])
+
+    # if not ws_manager.running:
+    #     ws_manager.start()
+
+    # # Wait until connected
+    # for i in range(20):
+    #     if ws_manager.connected:
+    #         break
+    #     time.sleep(0.5)
+
+    # logger.info("🟢 WebSocket ready for position monitoring")
+    # print(f" is runinng start_position_monitoring {state["is_running"] }  and {state.get("is_running")}")
+                   
 
     state["is_running"] = True
     _monitor_thread = threading.Thread(
@@ -69,17 +119,13 @@ def start_position_monitor_handler():
 # ----------------------------
 # Helpers
 # ----------------------------
-def _targets_for_side(entry, side):
+def _target_for_side(entry, side):
     sign = -1 if side.upper() == "SELL" else 1
 
-    percents = []
-    if state.get("target_1_enabled", True):
-        percents.append(state.get("target_1_percent", 0.01))
+    percent = state.get("target_1_percent", 0.01)
 
-    if state.get("target_2_enabled", False):
-        percents.append(state.get("target_2_percent", 0.02))
+    return round(entry * (1 + sign * percent), 4)
 
-    return [round(entry * (1 + sign * p), 4) for p in percents]
 
 
 
@@ -104,23 +150,23 @@ def _init_candle_buffer(token: int):
         minutes_since_open = int((now - market_open).total_seconds() / 60)
         
         # Find which candle period we're in
-        candle_number = minutes_since_open // CANDLE_INTERVAL
+        candle_number = minutes_since_open // state["CANDLE_INTERVAL"]
         
         # Calculate start of current candle
-        minutes_to_add = candle_number * CANDLE_INTERVAL
+        minutes_to_add = candle_number * state["CANDLE_INTERVAL"]
         this_start = market_open + timedelta(minutes=minutes_to_add)
     
-    this_end = this_start + timedelta(minutes=CANDLE_INTERVAL)
+    this_end = this_start + timedelta(minutes=state["CANDLE_INTERVAL"])
     
     _candle_buffers[token] = {
         "ticks": [],
         "current_period_end": this_end,
         "current_period_start": this_start
     }
-    print(f"[INIT] Candle buffer initialized (market-aligned):")
-    print(f"      Start: {this_start.strftime('%H:%M:%S')}")
-    print(f"      End: {this_end.strftime('%H:%M:%S')}")
-    print(f"      (Aligns with 9:15, 9:18, 9:21... standard market intervals)")
+    logger.info(f"[INIT] Candle buffer initialized (market-aligned):")
+    logger.info(f"      Start: {this_start.strftime('%H:%M:%S')}")
+    logger.info(f"      End: {this_end.strftime('%H:%M:%S')}")
+    logger.info(f"      (Aligns with 9:15, 9:18, 9:21... standard market intervals)")
 
 
 def _add_tick_for_candle(token: int, price: float, ts):
@@ -160,10 +206,10 @@ def _compute_and_clear_candle_if_period_finished(token: int):
         # Move to next candle period
         old_end = buf["current_period_end"]
         buf["current_period_start"] = old_end
-        buf["current_period_end"] = old_end + timedelta(minutes=CANDLE_INTERVAL)
+        buf["current_period_end"] = old_end + timedelta(minutes=state["CANDLE_INTERVAL"])
         buf["ticks"] = []
 
-        print(f"➡️ Next candle: start={buf['current_period_start']}, end={buf['current_period_end']}")
+        logger.info(f"➡️ Next candle: start={buf['current_period_start']}, end={buf['current_period_end']}")
 
         return candle
     
@@ -175,8 +221,8 @@ def _compute_and_clear_candle_if_period_finished(token: int):
 # Order / Stop / Exit Handlers
 # ----------------------------
 def _handle_target_hit(name, symbol, token, qty, price):
-    print(f"\n🎯 Target {name} HIT for {symbol}")
-    print(f"✅ [{name}] {symbol} qty={qty} booked at {price}")
+    logger.info(f"\n🎯 Target {name} HIT for {symbol}")
+    logger.info(f"✅ [{name}] {symbol} qty={qty} booked at {price}")
 
     message = (
         "🎯 *TARGET ACHIEVED*\n"
@@ -197,10 +243,10 @@ def _handle_target_hit(name, symbol, token, qty, price):
 
 
 def _handle_stoploss(symbol, token, qty, price, sl, side):
-    print(f"⚠️ STOPLOSS HIT for {symbol}")
-    print(f"   Close Price: {price}")
-    print(f"   Stop Loss: {sl}")
-    print(f"   Side: {side}")
+    logger.info(f"⚠️ STOPLOSS HIT for {symbol}")
+    logger.info(f"   Close Price: {price}")
+    logger.info(f"   Stop Loss: {sl}")
+    logger.info(f"   Side: {side}")
 
     message = (
         "⚠️ *STOPLOSS TRIGGERED*\n"
@@ -222,11 +268,11 @@ def _handle_stoploss(symbol, token, qty, price, sl, side):
     state["Monitoring_Background"] = False
 
 
-def _position_status(symbol, token, qty_closed, price, reason):
-    print(f"\n🔒 Position Closed: {symbol}")
-    print(f"   Quantity: {qty_closed}")
-    print(f"   Price: {price}")
-    print(f"   Reason: {reason}")
+def _position_status(symbol,  qty_closed, price, reason):
+    logger.info(f"\n🔒 Position Closed: {symbol}")
+    logger.info(f"   Quantity: {qty_closed}")
+    logger.info(f"   Price: {price}")
+    logger.info(f"   Reason: {reason}")
 
     state["position_status"]["closed"] = True
     state["is_running"] = False
@@ -236,18 +282,20 @@ def _position_status(symbol, token, qty_closed, price, reason):
     try:
         ws_manager.stop()
     except Exception as e:
-        print(f"Error stopping WS: {e}")
+        logger.exception(f"Error stopping WS: {e}")
 
 
 # ----------------------------
 # MAIN POSITION MONITOR LOOP
 def _monitor_position_loop(positions):
     active_pos = next((p for p in positions if int(p.get("quantity", 0)) != 0), None)
-    print(f"Active Position: {active_pos}")
+    logger.info(f"Active Position: {active_pos}")
 
     if not active_pos:
-        print("❌ No open position to monitor.")
+        logger.info("❌ No open position to monitor.")
         state["is_running"] = False
+        state["engine_status"] = "idle"
+        state["current_step"] = "idle"
         return
 
     token = int(active_pos["instrument_token"])
@@ -258,7 +306,7 @@ def _monitor_position_loop(positions):
     entry = float(active_pos["average_price"])
 
     # 🔒 Targets (dynamic, same math as before)
-    targets = _targets_for_side(entry, side)
+    targets = _target_for_side(entry, side)
 
     # Stop loss (unchanged)
     stocks = load_stocks_for_today()
@@ -268,12 +316,12 @@ def _monitor_position_loop(positions):
             sl = float(st.get("high"))
             break
 
-    print("\n=== POSITION MONITOR STARTED ===")
-    print(f"Symbol: {symbol} | Side: {side}")
-    print(f"Entry: {entry} | Qty: {qty_total}")
-    print(f"Targets: {targets}")
-    print(f"Stop Loss: {sl}")
-    print("=" * 50)
+    logger.info("\n=== POSITION MONITOR STARTED ===")
+    logger.info(f"Symbol: {symbol} | Side: {side}")
+    logger.info(f"Entry: {entry} | Qty: {qty_total}")
+    logger.info(f"Targets: {targets}")
+    logger.info(f"Stop Loss: {sl}")
+    logger.info("=" * 50)
 
     message = (
         "🎯 *POSITION MONITOR STARTED*\n"
@@ -307,10 +355,9 @@ def _monitor_position_loop(positions):
 
     last_price = None
     tick_count = 0
-
-    while state.get("is_running", False):
+    state["current_step"] = "Position Monitioring Started"
+    while state.get("is_running", False):        
         tick_count += 1
-        state["Monitoring_Background"] = True
 
         tick = state.get("live_data", {}).get(token)
 
@@ -318,7 +365,7 @@ def _monitor_position_loop(positions):
             last_price = float(tick.get("last_price") or tick.get("last") or 0)
             now = datetime.now(TZ)
             _add_tick_for_candle(token, last_price, now)
-            print(f"[{now.strftime('%H:%M:%S')}] {symbol} = {last_price}")
+            logger.info(f"[{now.strftime('%H:%M:%S')}] {symbol} = {last_price}")
 
         # ==================================================
         # 🔒 CANDLE LOGIC — NOT TOUCHED
@@ -335,97 +382,99 @@ def _monitor_position_loop(positions):
                 )
 
                 if sl_hit:
+                    kite =get_kite(state["username"])
+                    positions = kite.positions()["net"]
+                    qty_total = 0
+                    for p in kite.positions()["net"]:
+                        if p["tradingsymbol"] == symbol:
+                            qty_total = abs(p["quantity"])
+                            break
                     _handle_stoploss(symbol, token, qty_total, close_price, sl, side)
-                    order_place(symbol , qty_total)
-                    _position_status(
-                        symbol,
-                        token,
-                        state["position_status"]["qty_remaining"],
-                        close_price,
-                        "STOPLOSS",
-                    )
+                    order_place(symbol , qty_total , transaction_type="BUY" , reason="STOPLOSS HITTED")
+                    _position_status(symbol,state["position_status"]["qty_remaining"],close_price,"STOPLOSS",)
+                    state["current_step"] = "STOP_LOSS_TRIGGED"
+                    state["engine_status"] = "idle"
+                    state["is_running"] = False
+                    logger.info("STOP_LOSS_TRIGGRED")
                     return
 
         # ==================================================
-        # 🎯 TARGET LOGIC (SIMPLIFIED, SAME BEHAVIOR)
+        # 🎯 TARGET LOGIC (SINGLE TARGET ONLY)
         # ==================================================
         if last_price is not None:
             ps = state["position_status"]
-            idx = ps["current_target"]
-            targets = ps["targets"]
+            hit = (
+                (side == "BUY" and last_price >= targets) or
+                (side == "SELL" and last_price <= targets)
+            )
 
-            if idx < len(targets):
-                target_price = targets[idx]
+            if hit:
+                kite =get_kite(state["username"])
+                positions = kite.positions()["net"]
+                qty_to_book = 0
+                for p in kite.positions()["net"]:
+                    if p["tradingsymbol"] == symbol:
+                        qty_to_book = abs(p["quantity"])
+                        break
 
-                hit = (
-                    (side == "BUY" and last_price >= target_price) or
-                    (side == "SELL" and last_price <= target_price)
-                )
+                _handle_target_hit("T1", symbol, token, qty_to_book, last_price)
+                order_place(symbol,qty_to_book,transaction_type="BUY",reason="TARGET_HITTED")
+                ps["qty_remaining"] = 0
+                state["current_step"] = "TARGET_HITTED"
+                state["engine_state"] = "STOPPED"
+                state["is_running"] = False
 
-                if hit:
-                    remaining = ps["qty_remaining"]
+                _position_status(symbol,0, last_price, "TARGET_FILLED")
 
-                    # Same quantity logic as before
-                    if len(targets) > 1 and idx == 0:
-                        qty_to_book = remaining // 2
-                    else:
-                        qty_to_book = remaining
+                logger.info("TARGET HIT — POSITION CLOSED")
+                return
 
-                    _handle_target_hit(
-                        f"T{idx + 1}", symbol, token, qty_to_book, last_price
-                    )
-                    
-                    order_place(symbol , qty_total)
 
-                    ps["qty_remaining"] -= qty_to_book
-                    ps["current_target"] += 1
-
-                    # Last target reached
-                    if ps["current_target"] >= len(targets):
-                        _position_status(
-                            symbol, token, 0, last_price, "TARGETS_FILLED"
-                        )
-                        order_place(symbol , qty_total)
-                        state["Monitoring_Background"] = False
-                        state['engine_status'] = 'STOPPED'        
-                        state['is_running'] = False
-                        return
 
         # ==================================================
         # ⏰ EOD SQUAREOFF (UNCHANGED)
         # ==================================================
-        if datetime.now(TZ).time() >= SQUAREOFF_TIME:
-            _position_status(
-                symbol,
-                token,
-                state["position_status"]["qty_remaining"],
-                last_price,
-                "SQUAREOFF_EOD",
-            )
-            order_place(symbol , qty_total)
-            state["Monitoring_Background"] = False
-            return
+       
         
-        state['engine_status'] = 'STOPPED'        
-        state['is_running'] = False
-
+        if datetime.now(TZ).time() >= dt_time.fromisoformat(state["SQUAREOFF_TIME"]):
+            kite =get_kite(state["username"])
+            positions = kite.positions()["net"]
+            qty_total = 0
+            for p in kite.positions()["net"]:
+                if p["tradingsymbol"] == symbol:
+                    qty_total = abs(p["quantity"])
+                    break
+            _position_status(symbol,state["position_status"]["qty_remaining"],last_price,"SQUAREOFF_EOD",)
+            order_place(symbol , qty_total,transaction_type="BUY" , reason="AUTO SQUARE OFF")
+            state["engine_status"] = "idle"
+            state["current_step"] = "AUTO_SQUARE_OFF"
+            logger.info("POSITION CLOSE DUE TO AUTO SQUAREOFF_TIME")
+            return
         time.sleep(1)
 
     # Manual stop (UNCHANGED)
-    print("🛑 Monitor stopped manually.")
+    logger.info("🛑 Monitor stopped manually.")
     _position_status(
         symbol,
-        token,
         state["position_status"]["qty_remaining"],
         last_price,
         "MANUAL_STOP",
     )
+    
+    state["is_running"] = False
+    state["engine_status"] = "idle"
+    state["current_step"] = "MANUAL_STOP"
 
 
 
-def order_place(symbol, qty  ):
+
+def order_place(symbol, qty ,transaction_type, reason ):
 
     kite = state.get("kite")
+    if transaction_type == 'BUY':
+        type = kite.TRANSACTION_TYPE_BUY
+    else:
+        type = kite.TRANSACTION_TYPE_SELL
 
     try:
 
@@ -433,8 +482,8 @@ def order_place(symbol, qty  ):
                                 variety=kite.VARIETY_REGULAR,
                                 exchange=kite.EXCHANGE_NSE,
                                 tradingsymbol=symbol,
-                                transaction_type=kite.TRANSACTION_TYPE_SELL,
-                                quantity=1,
+                                transaction_type=type,
+                                quantity=qty,
                                 product=kite.PRODUCT_MIS,
                                 order_type=kite.ORDER_TYPE_MARKET,                            
                                 price=None,
@@ -459,21 +508,22 @@ def order_place(symbol, qty  ):
             error_message,
             parse_mode="Markdown"
         )
+        logger.exception("Error In Order Place")
 
-    message = format_order_placed_message(symbol, qty, order_number)
+    message = format_order_placed_message(symbol, qty, order_number , reason)
 
     TelegramSender.send_message(
         message,
         parse_mode="Markdown"
     )
     
+                
+    logger.info(f"Placing order: {symbol} | Qty: {qty} |  | order : {order_number} "   )
 
-    print(f"Placing order: {symbol} | Qty: {qty} |  | order : {order_number} "   )
 
-
-def format_order_placed_message(symbol, qty, order_id):
+def format_order_placed_message(symbol, qty, order_id , reason):
     return (
-        "📤 *ORDER PLACED SUCCESSFULLY*\n"
+        f"📤 *`{reason}`*\n"
         "━━━━━━━━━━━━━━━━━━\n"
         f"📌 *Symbol*      : `{symbol}`\n"
         f"🔻 *Side*        : `SELL`\n"

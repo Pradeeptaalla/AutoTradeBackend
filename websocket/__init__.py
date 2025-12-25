@@ -4,12 +4,15 @@ from .ws_engine import WSService
 from .logic_price import price_logic
 from .logic_status import get_status_payload
 
+from logger_config import setup_logger
+
+logger = setup_logger("Web_SOCKET_INIT")
 
 def init_ws(socketio, app):
     """
     Register all WebSocket namespaces using the WSService engine.
     """
-    print("🔧 Initializing WebSocket Services...")
+    logger.info("🔧 Initializing WebSocket Services...")
 
     services = [
         ("/price", price_logic, 1),   # every 1s
@@ -20,6 +23,6 @@ def init_ws(socketio, app):
         socketio.on_namespace(
             WSService(namespace, logic_fn, interval, socketio, app)
         )
-        print(f"   🟢 Registered WS namespace {namespace}")
+        logger.info(f"   🟢 Registered WS namespace {namespace}")
 
-    print("✅ All WebSocket namespaces initialized")
+    logger.info("✅ All WebSocket namespaces initialized")

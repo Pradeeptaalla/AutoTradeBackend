@@ -3,7 +3,9 @@
 import time
 from threading import Thread, Lock
 from flask_socketio import Namespace
+from logger_config import setup_logger
 
+logger = setup_logger("WEB_SOCKET_ENGINE")
 
 class WSService(Namespace):
     """
@@ -31,7 +33,7 @@ class WSService(Namespace):
     # Socket.IO event handlers
     # ------------------------------
     def on_connect(self):
-        print(f"🟢 Client connected → {self.namespace}")
+        logger.info(f"🟢 Client connected → {self.namespace}")
         self.socketio.emit(
             "server_message",
             {"msg": f"Connected to {self.namespace}"},
@@ -39,17 +41,17 @@ class WSService(Namespace):
         )
 
     def on_disconnect(self):
-        print(f"🔴 Client disconnected → {self.namespace}")
+        logger.info(f"🔴 Client disconnected → {self.namespace}")
         self.stop_feed()
 
     def on_start_feed(self, data=None):
         """Client requests to start the feed loop."""
-        print(f"▶️ start_feed requested → {self.namespace}")
+        logger.info(f"▶️ start_feed requested → {self.namespace}")
         self.start_feed()
 
     def on_stop_feed(self, data=None):
         """Client requests to stop the feed loop."""
-        print(f"⏸ stop_feed requested → {self.namespace}")
+        logger.info(f"⏸ stop_feed requested → {self.namespace}")
         self.stop_feed()
 
     # ------------------------------
@@ -58,27 +60,27 @@ class WSService(Namespace):
     def start_feed(self):
         with self._lock:
             if self._running:
-                print(f"⚠️ Feed already running → {self.namespace}")
+                logger.info(f"⚠️ Feed already running → {self.namespace}")
                 return
 
             self._running = True
             self._thread = Thread(target=self._loop, daemon=True)
             self._thread.start()
-            print(f"🌀 Feed loop started → {self.namespace}")
+            logger.info(f"🌀 Feed loop started → {self.namespace}")
 
     def stop_feed(self):
         with self._lock:
             if not self._running:
                 return
             self._running = False
-        print(f"⛔ Feed stop signalled → {self.namespace}")
+        logger.info(f"⛔ Feed stop signalled → {self.namespace}")
 
     # ------------------------------
     # Internal loop
     # ------------------------------
     def _loop(self):
         with self.app.app_context():
-            print(f"🌀 Feed loop started → {self.namespace}")
+            logger.info(f"🌀 Feed loop started → {self.namespace}")
 
             while self._running:  # FIXED: Changed from self.running to self._running
                 try:
@@ -91,8 +93,8 @@ class WSService(Namespace):
                     )
 
                 except Exception as e:
-                    print(f"❌ Error in feed loop for {self.namespace}: {e}")
+                    logger.exception(f"❌ Error in feed loop for {self.namespace}:")
 
                 time.sleep(self.interval)
 
-            print(f"⛔ Feed loop stopped → {self.namespace}")
+            logger.info(f"⛔ Feed loop stopped → {self.namespace}")

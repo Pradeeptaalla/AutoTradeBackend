@@ -14,10 +14,13 @@ from service_ws import ws_manager
 from datetime import datetime, timezone
 
 from telegram.sender import TelegramSender
+from util import get_kite
 
 now_utc = datetime.now(timezone.utc)
 
+from logger_config import setup_logger
 
+logger = setup_logger("eligible_stocks")
 
 ELIGIBILITY_FILE = "eligibility_state.json"
 
@@ -31,21 +34,21 @@ def run_eligibility_if_needed():
 
     # First time → run
     if last_check is None:
-        print("🔄 First eligibility run")
+        logger.info("🔄 First eligibility run")
         return True
 
     # No stock update → skip
     if last_update is None:
-        print("⚡ No stock update, skipping")
+        logger.info("⚡ No stock update, skipping")
         return False
 
     # Stock updated after last eligibility run → run
     if last_update > last_check:
-        print("🔄 Stock updated after last check → run eligibility")
+        logger.info("🔄 Stock updated after last check → run eligibility")
         return True
 
     # Otherwise → skip
-    print("⚡ Eligibility already up to date")
+    logger.info("⚡ Eligibility already up to date")
     return False
 
 
@@ -54,9 +57,9 @@ def save_eligibility_json(payload):
     try:
         with open(ELIGIBILITY_FILE, "w") as f:
             json.dump(payload, f, indent=4)
-        print("✓ Saved eligibility results →", ELIGIBILITY_FILE)
+        logger.info(f"✓ Saved eligibility results → {ELIGIBILITY_FILE}")
     except Exception as e:
-        print("❌ Error saving JSON:", e)
+        logger.exception("❌ Error saving eligibility JSON")
 
 
 def get_stock_file():
@@ -71,7 +74,7 @@ def load_stocks_for_today():
     stock_file = get_stock_file()
 
     if not os.path.exists(stock_file):
-        print("Stock file not found:", stock_file)
+        logger.info("Stock file not found:", stock_file)
         return []
 
     df = pd.read_excel(stock_file, dtype=str)
@@ -101,67 +104,150 @@ def load_stocks_for_today():
                 "high": high,
                 "low": low
             })
-        except Exception as e:
-            print("Row parse error:", e)
+        except Exception as e:            
+            logger.exception("❌ Row parse error:")
             continue
     
-    print(f"✓ Loaded {len(stocks)} stocks for {today_str} from {stock_file}")
+    logger.info(f"✓ Loaded {len(stocks)} stocks for {today_str} from {stock_file}")
 
     state["stock_load_list"] = stocks
-    print("Stocks for today:", state.get("stock_load_list", []))
+    logger.info(f"Stocks for today: {state.get('stock_load_list', [])}")
     return stocks
 
 
+def run_eligibility(force: bool = False):
+    """
+    PRODUCTION-SAFE eligibility check.
+    - Always starts WebSocket from clean state
+    - Handles prod latency
+    - Handles int/str token mismatch
+    - Deterministic behavior
+    """
 
-def run_eligibility():    
+    logger.info("🚀 run_eligibility called | force=%s", force)
 
+    # ============================================================
     # 1️⃣ Load stocks
+    # ============================================================
     stocks = load_stocks_for_today()
     if not stocks:
+        logger.error("❌ No stocks loaded for today")
         return {"success": False, "error": "No stocks for today"}
 
     stock_count = len(stocks)
+    logger.info("📦 Loaded %s stocks", stock_count)
 
-    if not run_eligibility_if_needed():
-        print("⚡ Returning cached eligibility data")
-        return state["eligibility_result"]
+    # ============================================================
+    # 2️⃣ Cache logic
+    # ============================================================
+    if not force:
+        if not run_eligibility_if_needed():
+            logger.info("⚡ Returning cached eligibility result")
+            return state.get("eligibility_result", {})
+        logger.info("🔄 Running fresh eligibility check")
+    else:
+        logger.info("🔥 Force enabled — ignoring cache")
 
-    print("🔄 Running fresh eligibility check")
+    # ============================================================
+    # 3️⃣ FORCE CLEAN WEBSOCKET STATE (CRITICAL FOR PROD)
+    # ============================================================
+    logger.info("🧹 Resetting WebSocket state before eligibility")
 
+    try:
+        ws_manager.stop()
+    except Exception:
+        logger.exception("WS stop error (pre-eligibility)")
 
+    time.sleep(0.5)
 
-    # 3️⃣ WebSocket setup
-    if not ws_manager.kws:
-        if not ws_manager.setup("PradeepApi", state["enctoken"], state["user_id"]):
-            return {"success": False, "error": "WebSocket setup failed"}
+    # hard reset flags (prevents zombie WS in prod)
+    ws_manager.kws = None
+    ws_manager.connected = False
+    ws_manager.running = False
 
-    if not ws_manager.running:
-        ws_manager.start()
+    kite =get_kite(state["username"])
+    # ============================================================
+    # 4️⃣ Setup WebSocket (FRESH)
+    # ============================================================
+    logger.info("🔧 Setting up WebSocket (fresh)")
 
-    for _ in range(10):
+    if not ws_manager.setup("PradeepApi", state["enctoken"], state["user_id"]):
+        logger.error("❌ WebSocket setup failed")
+        return {"success": False, "error": "WebSocket setup failed"}
+
+    logger.info("▶ Starting WebSocket thread")
+    ws_manager.start()
+
+    # ============================================================
+    # 5️⃣ Wait for WebSocket connection (PROD SAFE)
+    # ============================================================
+    for i in range(20):  # longer wait for prod latency
+        logger.info(
+            "⏳ Waiting for WS connection (%s/20) | connected=%s running=%s",
+            i + 1,
+            ws_manager.connected,
+            ws_manager.running
+        )
         if ws_manager.connected:
             break
         time.sleep(0.5)
 
     if not ws_manager.connected:
+        logger.error("❌ WebSocket not connected (timeout)")
         return {"success": False, "error": "WebSocket not connected"}
 
     state["websocket_status"] = "Connected"
+    logger.info("🟢 WebSocket connected")
 
-    # 4️⃣ Subscribe tokens
-    tokens = [s["instrument_token"] for s in stocks]
+    # ============================================================
+    # 6️⃣ Subscribe tokens (INT ONLY)
+    # ============================================================
+    tokens = [int(s["instrument_token"]) for s in stocks]
+    logger.info("📡 Subscribing tokens (INT): %s", tokens)
+
     ws_manager.subscribe(tokens)
-    time.sleep(2)
 
-    # 5️⃣ Eligibility logic
+    # ============================================================
+    # 7️⃣ Wait for first tick (deterministic)
+    # ============================================================
+    logger.info("⏳ Waiting for ticks...")
+    for i in range(20):
+        live_keys = list(state.get("live_data", {}).keys())
+        logger.info("⏳ Tick wait %s/20 | live_data keys=%s", i + 1, live_keys)
+
+        if any(
+            str(s["instrument_token"]) in state["live_data"]
+            or s["instrument_token"] in state["live_data"]
+            for s in stocks
+        ):
+            logger.info("✅ At least one tick received")
+            break
+
+        time.sleep(0.5)
+
+    # ============================================================
+    # 8️⃣ Eligibility logic (UNCHANGED)
+    # ============================================================
     eligible, not_el, doji, errors = [], [], [], []
 
     for st in stocks:
         sym = st["symbol"]
-        tok = st["instrument_token"]
+        token_int = int(st["instrument_token"])
+        token_str = str(token_int)
         H, L = st["high"], st["low"]
 
-        tick = state["live_data"].get(tok)
+        tick = (
+            state["live_data"].get(token_int)
+            or state["live_data"].get(token_str)
+        )
+
+        logger.info(
+            "🔍 Processing %s | token=%s | tick_exists=%s",
+            sym,
+            token_int,
+            tick is not None
+        )
+
         if not tick:
             errors.append(f"{sym}: No tick")
             continue
@@ -169,7 +255,8 @@ def run_eligibility():
         try:
             open_p = float(tick["ohlc"]["open"])
             last = float(tick["last_price"])
-        except:
+        except Exception:
+            logger.exception("❌ Bad tick structure for %s", sym)
             errors.append(f"{sym}: Bad tick")
             continue
 
@@ -185,16 +272,12 @@ def run_eligibility():
         else:
             errors.append(f"{sym}: Uncategorized")
 
-
-    
+    # ============================================================
+    # 9️⃣ Save + Notify
+    # ============================================================
     message = format_eligible_stocks_message(eligible)
+    TelegramSender.send_message(message, parse_mode="Markdown")
 
-    TelegramSender.send_message(
-        message,
-        parse_mode="Markdown"
-    )
-
-    # 6️⃣ Build response (frontend compatible)
     state["eligible_stocks"] = eligible
     state["not_eligible_stocks"] = not_el
     state["doji_eligible_stocks"] = doji
@@ -206,22 +289,35 @@ def run_eligibility():
         "doji_eligible": doji,
         "errors": errors,
         "total_checked": stock_count,
-        "websocket_status": state.get("websocket_status", "Disconnected")
+        "websocket_status": state.get("websocket_status", "Disconnected"),
     }
 
     save_eligibility_json(result)
 
-    # 7️⃣ Save cache
     state.update({
         "eligibility_result": result,
         "eligibility_date": date.today().isoformat(),
-        "stocks_count": stock_count
+        "stocks_count": stock_count,
     })
 
-    # 8️⃣ Cleanup
-    ws_manager.stop()
+    # ============================================================
+    # 🔟 Cleanup (FULL RESET)
+    # ============================================================
+    logger.info("🛑 Stopping WebSocket (eligibility cleanup)")
+
+    try:
+        ws_manager.stop()
+    except Exception:
+        logger.exception("WS stop error (eligibility cleanup)")
+
+    ws_manager.kws = None
+    ws_manager.connected = False
+    ws_manager.running = False
+
     state["websocket_status"] = "Disconnected"
     state["last_eligibility_check"] = datetime.now(timezone.utc)
+
+    logger.info("✅ Eligibility completed successfully")
     return result
 
 

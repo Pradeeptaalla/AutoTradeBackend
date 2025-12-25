@@ -25,6 +25,9 @@ from .__version__ import __version__, __title__
 
 log = logging.getLogger(__name__)
 
+from logger_config import setup_logger
+
+logger = setup_logger("Kite Ticket File")
 
 class KiteTickerClientProtocol(WebSocketClientProtocol):
     """Kite ticker autobahn WebSocket protocol."""
@@ -580,6 +583,9 @@ class KiteTicker(object):
 
             return True
         except Exception as e:
+            logger.exception("ERROR in KITE TICKER")
+            
+            
             self._close(reason="Error while subscribe: {}".format(str(e)))
             raise
 
@@ -602,6 +608,7 @@ class KiteTicker(object):
 
             return True
         except Exception as e:
+            logger.exception("ERROR in KITE TICKER")
             self._close(reason="Error while unsubscribe: {}".format(str(e)))
             raise
 
@@ -624,6 +631,7 @@ class KiteTicker(object):
 
             return True
         except Exception as e:
+            logger.exception("ERROR in KITE TICKER")
             self._close(reason="Error while setting mode: {}".format(str(e)))
             raise
 
