@@ -67,17 +67,43 @@ socketio = SocketIO(
     engineio_logger=False,
 )
 
+
+
+
+
+
 @app.before_request
 def log_request():
+    if request.path.startswith("/logs"):
+        return
+
     request._start_time = time.time()
-    logger.info("REQ %s %s | ip=%s | endpoint=%s",request.method,request.path,request.remote_addr,request.endpoint)
+    logger.info(
+        "REQ %s %s | ip=%s | endpoint=%s",
+        request.method,
+        request.path,
+        request.remote_addr,
+        request.endpoint
+    )
 
 
 @app.after_request
 def log_response(response):
-    duration = round(time.time() - request._start_time, 4)
-    logger.info("RES %s %s | status=%s | time=%ss",request.method,request.path,response.status_code,duration)
+    if request.path.startswith("/logs"):
+        return response
+
+    duration = round(time.time() - getattr(request, "_start_time", time.time()), 4)
+
+    logger.info(
+        "RES %s %s | status=%s | time=%ss",
+        request.method,
+        request.path,
+        response.status_code,
+        duration
+    )
     return response
+
+
 
 @app.errorhandler(KiteSessionError)
 def handle_kite_error(e):

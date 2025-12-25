@@ -9,7 +9,7 @@ logger = setup_logger("logger_module")
 logger_bp = Blueprint("logger", __name__)
 LOG_DIRECTORY = "logs"
 
-@logger_bp.route('/', methods=['GET'])
+@logger_bp.route('/data', methods=['GET'])
 def get_logs():
     """
     Get logs with optional filters

@@ -180,7 +180,7 @@ def _monitor_trades(run_id: str):
         if tokens:
             ws_manager.subscribe(tokens)
 
-        while state.get("run_id") == run_id and state.get("is_running"):
+        while state.get("run_id") == run_id and state.get("is_running"): 
             live_data = state.get("live_data", {})
 
             for stock in eligible_list:

@@ -5637,3 +5637,770 @@ information about how to avoid this problem.
 [2025-12-25 18:32:01,917] [INFO] [APP] RES GET /logs | status=308 | time=0.003s
 [2025-12-25 18:32:02,995] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
 [2025-12-25 18:32:03,040] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0451s
+[2025-12-25 18:43:01,938] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 18:43:02,316] [INFO] [Web_SOCKET_INIT] 🔧 Initializing WebSocket Services...
+[2025-12-25 18:43:02,316] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /price
+[2025-12-25 18:43:02,317] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /status
+[2025-12-25 18:43:02,317] [INFO] [Web_SOCKET_INIT] ✅ All WebSocket namespaces initialized
+[2025-12-25 18:43:02,318] [INFO] [APP] 🚀 Starting WebSocket + API server...
+[2025-12-25 18:43:36,719] [INFO] [APP] REQ OPTIONS /auth/login | ip=127.0.0.1 | endpoint=authentication.login
+[2025-12-25 18:43:36,722] [INFO] [APP] RES OPTIONS /auth/login | status=200 | time=0.003s
+[2025-12-25 18:43:37,052] [INFO] [APP] REQ POST /auth/login | ip=127.0.0.1 | endpoint=authentication.login
+[2025-12-25 18:43:40,103] [INFO] [APP] RES POST /auth/login | status=200 | time=3.0503s
+[2025-12-25 18:43:40,235] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 18:43:40,236] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 18:43:40,543] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 18:43:40,544] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 18:43:40,544] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 18:43:40,545] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.002s
+[2025-12-25 18:43:44,752] [INFO] [APP] REQ GET /logs | ip=127.0.0.1 | endpoint=None
+[2025-12-25 18:43:44,754] [INFO] [APP] RES GET /logs | status=308 | time=0.002s
+[2025-12-25 18:43:45,071] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:43:45,125] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0543s
+[2025-12-25 18:43:47,758] [INFO] [APP] REQ GET /logs | ip=127.0.0.1 | endpoint=None
+[2025-12-25 18:43:47,759] [INFO] [APP] RES GET /logs | status=308 | time=0.001s
+[2025-12-25 18:43:48,194] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:43:48,256] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0618s
+[2025-12-25 18:43:50,787] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:43:50,811] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0236s
+[2025-12-25 18:43:54,132] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:43:54,180] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0476s
+[2025-12-25 18:43:56,831] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:43:56,863] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0322s
+[2025-12-25 18:44:00,207] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:00,284] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0765s
+[2025-12-25 18:44:02,868] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:02,913] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0448s
+[2025-12-25 18:44:06,152] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:06,223] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0706s
+[2025-12-25 18:44:08,825] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:08,863] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0379s
+[2025-12-25 18:44:12,152] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:12,214] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0623s
+[2025-12-25 18:44:14,819] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:14,855] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0359s
+[2025-12-25 18:44:18,177] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:18,245] [INFO] [APP] RES GET /logs/ | status=200 | time=0.068s
+[2025-12-25 18:44:20,865] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:20,937] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0718s
+[2025-12-25 18:44:24,132] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:24,182] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0494s
+[2025-12-25 18:44:27,106] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:27,128] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0233s
+[2025-12-25 18:44:30,471] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:30,495] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0236s
+[2025-12-25 18:44:33,220] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:33,239] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0191s
+[2025-12-25 18:44:36,502] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:36,520] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0173s
+[2025-12-25 18:44:38,834] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:38,879] [INFO] [APP] RES GET /logs/ | status=200 | time=0.045s
+[2025-12-25 18:44:42,462] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:42,492] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0316s
+[2025-12-25 18:44:45,121] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:45,141] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0201s
+[2025-12-25 18:44:48,461] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:48,485] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0239s
+[2025-12-25 18:44:51,215] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:51,239] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0243s
+[2025-12-25 18:44:54,483] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:54,506] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0236s
+[2025-12-25 18:44:57,172] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:44:57,204] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0317s
+[2025-12-25 18:45:00,140] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:00,195] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0553s
+[2025-12-25 18:45:03,141] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:03,170] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0296s
+[2025-12-25 18:45:06,423] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:06,466] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0431s
+[2025-12-25 18:45:08,858] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:08,908] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0506s
+[2025-12-25 18:45:12,457] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:12,489] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0319s
+[2025-12-25 18:45:15,140] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:15,168] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0286s
+[2025-12-25 18:45:18,428] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:18,467] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0386s
+[2025-12-25 18:45:21,184] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:21,207] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0222s
+[2025-12-25 18:45:24,490] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:24,561] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0713s
+[2025-12-25 18:45:27,118] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:27,155] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0368s
+[2025-12-25 18:45:30,414] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:30,464] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0496s
+[2025-12-25 18:45:33,114] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:33,142] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0289s
+[2025-12-25 18:45:36,464] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:36,500] [INFO] [APP] RES GET /logs/ | status=200 | time=0.036s
+[2025-12-25 18:45:39,175] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:39,203] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0278s
+[2025-12-25 18:45:42,462] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:42,500] [INFO] [APP] RES GET /logs/ | status=200 | time=0.038s
+[2025-12-25 18:45:45,118] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:45,145] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0266s
+[2025-12-25 18:45:48,444] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:48,475] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0311s
+[2025-12-25 18:45:51,146] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:51,177] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0317s
+[2025-12-25 18:45:54,478] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:54,521] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0426s
+[2025-12-25 18:45:57,215] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:45:57,247] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0321s
+[2025-12-25 18:46:00,454] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:00,499] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0442s
+[2025-12-25 18:46:03,136] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:03,158] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0225s
+[2025-12-25 18:46:06,433] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:06,479] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0462s
+[2025-12-25 18:46:09,139] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:09,169] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0299s
+[2025-12-25 18:46:12,441] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:12,481] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0407s
+[2025-12-25 18:46:15,144] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:15,172] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0279s
+[2025-12-25 18:46:18,445] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:18,483] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0378s
+[2025-12-25 18:46:21,119] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:21,139] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0201s
+[2025-12-25 18:46:24,439] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:46:24,477] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0385s
+[2025-12-25 18:47:13,150] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:47:13,172] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0219s
+[2025-12-25 18:48:13,575] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:48:13,619] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0443s
+[2025-12-25 18:49:07,351] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 18:49:07,456] [INFO] [Web_SOCKET_INIT] 🔧 Initializing WebSocket Services...
+[2025-12-25 18:49:07,458] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /price
+[2025-12-25 18:49:07,458] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /status
+[2025-12-25 18:49:07,459] [INFO] [Web_SOCKET_INIT] ✅ All WebSocket namespaces initialized
+[2025-12-25 18:49:07,459] [INFO] [APP] 🚀 Starting WebSocket + API server...
+[2025-12-25 18:49:08,907] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:08,979] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0725s
+[2025-12-25 18:49:12,434] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:12,470] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0359s
+[2025-12-25 18:49:15,116] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:15,139] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0227s
+[2025-12-25 18:49:18,452] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:18,506] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0548s
+[2025-12-25 18:49:21,134] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:21,179] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0449s
+[2025-12-25 18:49:24,479] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:24,523] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0435s
+[2025-12-25 18:49:27,138] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:27,170] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0317s
+[2025-12-25 18:49:30,451] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:30,519] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0677s
+[2025-12-25 18:49:33,166] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:33,217] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0509s
+[2025-12-25 18:49:36,438] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:36,490] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0523s
+[2025-12-25 18:49:39,149] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:39,176] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0276s
+[2025-12-25 18:49:42,499] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:42,536] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0378s
+[2025-12-25 18:49:45,144] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:45,201] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0563s
+[2025-12-25 18:49:48,441] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:48,484] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0433s
+[2025-12-25 18:49:51,123] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:51,152] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0299s
+[2025-12-25 18:49:54,437] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:54,492] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0551s
+[2025-12-25 18:49:57,125] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:49:57,161] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0362s
+[2025-12-25 18:50:00,453] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:00,513] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0596s
+[2025-12-25 18:50:03,120] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:03,172] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0519s
+[2025-12-25 18:50:06,423] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:06,505] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0818s
+[2025-12-25 18:50:08,808] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:08,849] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0406s
+[2025-12-25 18:50:12,146] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:12,269] [INFO] [APP] RES GET /logs/ | status=200 | time=0.1237s
+[2025-12-25 18:50:14,835] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:14,897] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0617s
+[2025-12-25 18:50:18,150] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:18,305] [INFO] [APP] RES GET /logs/ | status=200 | time=0.1548s
+[2025-12-25 18:50:20,820] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:20,846] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0256s
+[2025-12-25 18:50:24,142] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:24,286] [INFO] [APP] RES GET /logs/ | status=200 | time=0.143s
+[2025-12-25 18:50:26,831] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:26,855] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0242s
+[2025-12-25 18:50:30,139] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:30,204] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0653s
+[2025-12-25 18:50:32,835] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:32,852] [INFO] [APP] RES GET /logs/ | status=200 | time=0.017s
+[2025-12-25 18:50:36,423] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:36,455] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0327s
+[2025-12-25 18:50:39,139] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:39,167] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0281s
+[2025-12-25 18:50:42,345] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:42,373] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0276s
+[2025-12-25 18:50:45,086] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:45,118] [INFO] [APP] RES GET /logs/ | status=200 | time=0.032s
+[2025-12-25 18:50:48,471] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:48,496] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0242s
+[2025-12-25 18:50:51,155] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:51,184] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0282s
+[2025-12-25 18:50:54,423] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:54,472] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0489s
+[2025-12-25 18:50:57,109] [INFO] [APP] REQ GET /logs/ | ip=127.0.0.1 | endpoint=logger.get_logs
+[2025-12-25 18:50:57,132] [INFO] [APP] RES GET /logs/ | status=200 | time=0.0216s
+[2025-12-25 18:51:03,238] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 18:51:03,288] [INFO] [Web_SOCKET_INIT] 🔧 Initializing WebSocket Services...
+[2025-12-25 18:51:03,288] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /price
+[2025-12-25 18:51:03,288] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /status
+[2025-12-25 18:51:03,288] [INFO] [Web_SOCKET_INIT] ✅ All WebSocket namespaces initialized
+[2025-12-25 18:51:03,289] [INFO] [APP] 🚀 Starting WebSocket + API server...
+[2025-12-25 18:51:34,783] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 18:51:34,788] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 18:51:34,789] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 18:51:34,793] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0094s
+[2025-12-25 18:51:35,050] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 18:51:35,058] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 18:51:35,059] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 18:51:35,062] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0122s
+[2025-12-25 18:51:35,145] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 18:51:35,148] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 18:51:35,150] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 18:51:35,172] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0266s
+[2025-12-25 19:11:34] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 19:12:17] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 19:12:17] [INFO] [Web_SOCKET_INIT] 🔧 Initializing WebSocket Services...
+[2025-12-25 19:12:17] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /price
+[2025-12-25 19:12:17] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /status
+[2025-12-25 19:12:17] [INFO] [Web_SOCKET_INIT] ✅ All WebSocket namespaces initialized
+[2025-12-25 19:12:17] [INFO] [APP] 🚀 Starting WebSocket + API server...
+[2025-12-25 19:12:24] [INFO] [APP] REQ OPTIONS /auth/login | ip=127.0.0.1 | endpoint=authentication.login
+[2025-12-25 19:12:24] [INFO] [APP] RES OPTIONS /auth/login | status=200 | time=0.0031s
+[2025-12-25 19:12:24] [INFO] [APP] REQ POST /auth/login | ip=127.0.0.1 | endpoint=authentication.login
+[2025-12-25 19:12:26] [INFO] [APP] RES POST /auth/login | status=200 | time=1.57s
+[2025-12-25 19:12:26] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:12:26] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:12:26] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:12:26] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:12:26] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:12:26] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0028s
+[2025-12-25 19:12:30] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:12:30] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:12:30] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:12:30] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:12:40] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:12:40] [INFO] [APP] REQ OPTIONS /trading/check-eligibility | ip=127.0.0.1 | endpoint=trading.check_eligibility
+[2025-12-25 19:12:40] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:12:40] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:12:40] [INFO] [APP] RES OPTIONS /trading/check-eligibility | status=200 | time=0.0057s
+[2025-12-25 19:12:40] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:12:41] [INFO] [APP] REQ POST /trading/check-eligibility | ip=127.0.0.1 | endpoint=trading.check_eligibility
+[2025-12-25 19:12:41] [INFO] [Trading_Module] Eligibility check requested | force=False
+[2025-12-25 19:12:41] [INFO] [eligible_stocks] 🚀 run_eligibility called | force=False
+[2025-12-25 19:12:41] [INFO] [APP] CORS allowed origins: ['http://localhost:3000']
+[2025-12-25 19:12:41] [INFO] [Web_SOCKET_INIT] 🔧 Initializing WebSocket Services...
+[2025-12-25 19:12:41] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /price
+[2025-12-25 19:12:41] [INFO] [Web_SOCKET_INIT]    🟢 Registered WS namespace /status
+[2025-12-25 19:12:41] [INFO] [Web_SOCKET_INIT] ✅ All WebSocket namespaces initialized
+[2025-12-25 19:12:42] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:12:42] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:12:42] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:12:42] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:12:46] [ERROR] [eligible_stocks] ❌ No stocks loaded for today
+[2025-12-25 19:12:46] [INFO] [APP] RES POST /trading/check-eligibility | status=200 | time=5.6812s
+[2025-12-25 19:12:58] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:12:58] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:12:58] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:12:58] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.004s
+[2025-12-25 19:12:59] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:12:59] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:12:59] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:12:59] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0487s
+[2025-12-25 19:12:59] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:12:59] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.0677s
+[2025-12-25 19:12:59] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:12:59] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:12:59] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:12:59] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0103s
+[2025-12-25 19:13:00] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:13:00] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:13:00] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:00] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:00] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:00] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.001s
+[2025-12-25 19:13:00] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:13:00] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:00] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:00] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:00] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.003s
+[2025-12-25 19:13:00] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:00] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.006s
+[2025-12-25 19:13:00] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:00] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:00] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:00] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.0051s
+[2025-12-25 19:13:00] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:00] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.004s
+[2025-12-25 19:13:05] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:05] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.002s
+[2025-12-25 19:13:06] [INFO] [APP] REQ OPTIONS /dashboard/reset-state | ip=127.0.0.1 | endpoint=dashboard.reset_state
+[2025-12-25 19:13:06] [INFO] [APP] RES OPTIONS /dashboard/reset-state | status=200 | time=0.001s
+[2025-12-25 19:13:06] [INFO] [APP] REQ POST /dashboard/reset-state | ip=127.0.0.1 | endpoint=dashboard.reset_state
+[2025-12-25 19:13:06] [INFO] [APP] RES POST /dashboard/reset-state | status=200 | time=0.003s
+[2025-12-25 19:13:07] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:07] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.003s
+[2025-12-25 19:13:07] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:07] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.0059s
+[2025-12-25 19:13:10] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:10] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.003s
+[2025-12-25 19:13:15] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:15] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.001s
+[2025-12-25 19:13:15] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:15] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.008s
+[2025-12-25 19:13:19] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:19] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:19] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:19] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.005s
+[2025-12-25 19:13:20] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:20] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:20] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:20] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.004s
+[2025-12-25 19:13:20] [INFO] [APP] REQ GET /auth/check-session | ip=127.0.0.1 | endpoint=authentication.check_session
+[2025-12-25 19:13:20] [INFO] [authentication_module] get logged_in details True 
+[2025-12-25 19:13:20] [INFO] [authentication_module] get username  details admin 
+[2025-12-25 19:13:20] [INFO] [APP] RES GET /auth/check-session | status=200 | time=0.005s
+[2025-12-25 19:13:20] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:13:20] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:13:20] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:13:20] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:13:21] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:13:21] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:13:21] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:13:22] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:22] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.0011s
+[2025-12-25 19:13:22] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:13:22] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.0049s
+[2025-12-25 19:13:22] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:13:23] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:13:23] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:13:23] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:13:23] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:15:10] [INFO] [APP] REQ OPTIONS /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:15:10] [INFO] [APP] RES OPTIONS /trading/start-trading | status=200 | time=0.004s
+[2025-12-25 19:15:10] [INFO] [APP] REQ POST /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:15:10] [INFO] [state_trading] 🚀 start_trading_handler called
+[2025-12-25 19:15:13] [INFO] [Util] Zerodha login successful | user=admin
+[2025-12-25 19:15:13] [INFO] [state_trading] 🧪 Running eligibility (force=True)
+[2025-12-25 19:15:13] [INFO] [eligible_stocks] 🚀 run_eligibility called | force=True
+[2025-12-25 19:15:14] [ERROR] [eligible_stocks] ❌ No stocks loaded for today
+[2025-12-25 19:15:14] [INFO] [state_trading] 🧪 Eligibility completed | eligible=0
+[2025-12-25 19:15:14] [INFO] [APP] RES POST /trading/start-trading | status=200 | time=3.6067s
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_LOGIC_PRICE] Running price logic...
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_LOGIC_PRICE] None
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /price
+[2025-12-25 19:15:25] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:15:26] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /price
+[2025-12-25 19:15:27] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /price
+[2025-12-25 19:15:27] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:15:27] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.1168s
+[2025-12-25 19:15:32] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:15:32] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.0384s
+[2025-12-25 19:15:39] [INFO] [APP] REQ OPTIONS /stocks/update-stock | ip=127.0.0.1 | endpoint=stock.update_stock
+[2025-12-25 19:15:39] [INFO] [APP] RES OPTIONS /stocks/update-stock | status=200 | time=0.001s
+[2025-12-25 19:15:39] [INFO] [APP] REQ POST /stocks/update-stock | ip=127.0.0.1 | endpoint=stock.update_stock
+[2025-12-25 19:15:39] [INFO] [APP] RES POST /stocks/update-stock | status=200 | time=0.3013s
+[2025-12-25 19:15:39] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:15:39] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.1433s
+[2025-12-25 19:15:42] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:15:42] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:15:42] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:15:42] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:15:43] [INFO] [APP] REQ OPTIONS /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:15:43] [INFO] [APP] RES OPTIONS /trading/start-trading | status=200 | time=0.0029s
+[2025-12-25 19:15:43] [INFO] [APP] REQ POST /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:15:43] [INFO] [state_trading] 🚀 start_trading_handler called
+[2025-12-25 19:15:43] [INFO] [state_trading] 🧪 Running eligibility (force=True)
+[2025-12-25 19:15:43] [INFO] [eligible_stocks] 🚀 run_eligibility called | force=True
+[2025-12-25 19:15:43] [ERROR] [eligible_stocks] ❌ No stocks loaded for today
+[2025-12-25 19:15:43] [INFO] [state_trading] 🧪 Eligibility completed | eligible=0
+[2025-12-25 19:15:43] [INFO] [APP] RES POST /trading/start-trading | status=200 | time=0.3502s
+[2025-12-25 19:15:51] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:15:51] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:15:51] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:15:52] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:15:52] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.0677s
+[2025-12-25 19:15:52] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:15:57] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:15:57] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.0815s
+[2025-12-25 19:16:00] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:16:00] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.1276s
+[2025-12-25 19:16:06] [INFO] [APP] REQ OPTIONS /stocks/update-stock | ip=127.0.0.1 | endpoint=stock.update_stock
+[2025-12-25 19:16:06] [INFO] [APP] RES OPTIONS /stocks/update-stock | status=200 | time=0.001s
+[2025-12-25 19:16:06] [INFO] [APP] REQ POST /stocks/update-stock | ip=127.0.0.1 | endpoint=stock.update_stock
+[2025-12-25 19:16:06] [INFO] [APP] RES POST /stocks/update-stock | status=200 | time=0.21s
+[2025-12-25 19:16:06] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:16:06] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.1306s
+[2025-12-25 19:16:09] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:09] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.002s
+[2025-12-25 19:16:09] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:09] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.005s
+[2025-12-25 19:16:12] [INFO] [APP] REQ GET /stocks/get-stocks | ip=127.0.0.1 | endpoint=stock.get_stocks
+[2025-12-25 19:16:12] [INFO] [APP] RES GET /stocks/get-stocks | status=200 | time=0.0896s
+[2025-12-25 19:16:13] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:16:13] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:16:13] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:16:13] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:16:13] [INFO] [APP] REQ OPTIONS /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:16:14] [INFO] [APP] RES OPTIONS /trading/start-trading | status=200 | time=0.009s
+[2025-12-25 19:16:14] [INFO] [APP] REQ POST /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:16:14] [INFO] [state_trading] 🚀 start_trading_handler called
+[2025-12-25 19:16:14] [INFO] [state_trading] 🧪 Running eligibility (force=True)
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] 🚀 run_eligibility called | force=True
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] ✓ Loaded 1 stocks for 2025-12-25 from stocks_database.xlsx
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] Stocks for today: [{'symbol': 'IDEA', 'instrument_token': 3677697, 'high': 12.9, 'low': 12.3}]
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] 📦 Loaded 1 stocks
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] 🔥 Force enabled — ignoring cache
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] 🧹 Resetting WebSocket state before eligibility
+[2025-12-25 19:16:14] [INFO] [Web_Socket_Manager] WS stop skipped — kws already None
+[2025-12-25 19:16:14] [INFO] [eligible_stocks] 🔧 Setting up WebSocket (fresh)
+[2025-12-25 19:16:15] [INFO] [Web_Socket_Manager] WS Setup → 0UBRv+7Q9vsOEQhXKmnIu8PCa7GEvKKU0mjrlQ0UEajHxUUME2+0wxEr2bKGt13nnlaYuHrfsng7Zn1ASvoY3ywcJNg5qtfHaFIoLvcRsHgUQKyZLovXKg==&user_id=IL6657
+[2025-12-25 19:16:15] [INFO] [eligible_stocks] ▶ Starting WebSocket thread
+[2025-12-25 19:16:15] [INFO] [Web_Socket_Manager] ▶ Starting WebSocket connection
+[2025-12-25 19:16:15] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (1/20) | connected=False running=True
+[2025-12-25 19:16:15] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (2/20) | connected=False running=True
+[2025-12-25 19:16:15] [INFO] [Web_Socket_Manager] 🟢 WS CONNECTED
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (3/20) | connected=True running=True
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] 🟢 WebSocket connected
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] 📡 Subscribing tokens (INT): [3677697]
+[2025-12-25 19:16:16] [INFO] [Web_Socket_Manager] 📡 Subscribed tokens: [3677697]
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] ⏳ Waiting for ticks...
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] ⏳ Tick wait 1/20 | live_data keys=[]
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] ⏳ Tick wait 2/20 | live_data keys=[3677697]
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] ✅ At least one tick received
+[2025-12-25 19:16:16] [INFO] [eligible_stocks] 🔍 Processing IDEA | token=3677697 | tick_exists=True
+[2025-12-25 19:16:19] [INFO] [eligible_stocks] ✓ Saved eligibility results → eligibility_state.json
+[2025-12-25 19:16:19] [INFO] [eligible_stocks] 🛑 Stopping WebSocket (eligibility cleanup)
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] 🛑 Stopping WebSocket connection...
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] 🔴 WebSocket fully stopped
+[2025-12-25 19:16:19] [INFO] [eligible_stocks] ✅ Eligibility completed successfully
+[2025-12-25 19:16:19] [INFO] [state_trading] 🧪 Eligibility completed | eligible=1
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] WS Setup → 0UBRv+7Q9vsOEQhXKmnIu8PCa7GEvKKU0mjrlQ0UEajHxUUME2+0wxEr2bKGt13nnlaYuHrfsng7Zn1ASvoY3ywcJNg5qtfHaFIoLvcRsHgUQKyZLovXKg==&user_id=IL6657
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] ▶ Starting WebSocket connection
+[2025-12-25 19:16:19] [INFO] [state_trading] ⏳ Waiting for WS (1/20)
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] 🔴 WS CLOSED | code=None reason=None
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] 🟢 WS CONNECTED
+[2025-12-25 19:16:19] [INFO] [state_trading] 🟢 WS Connected
+[2025-12-25 19:16:19] [INFO] [Web_Socket_Manager] 📡 Subscribed tokens: [3677697]
+[2025-12-25 19:16:20] [INFO] [state_trading] ===== MONITOR STARTED =====
+[2025-12-25 19:16:20] [INFO] [APP] RES POST /trading/start-trading | status=200 | time=6.7552s
+[2025-12-25 19:16:23] [INFO] [Web_Socket_Manager] 📡 Subscribed tokens: [3677697]
+[2025-12-25 19:16:23] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:24] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:25] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:26] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:27] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:28] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:29] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:16:29] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:16:29] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:16:29] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:29] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:29] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.001s
+[2025-12-25 19:16:30] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:30] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.002s
+[2025-12-25 19:16:30] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:16:30] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:31] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:32] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:33] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:34] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:34] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.004s
+[2025-12-25 19:16:34] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:35] [INFO] [state_trading] SYMBOL:- IDEA | Last Price:- 12.02
+[2025-12-25 19:16:35] [INFO] [APP] REQ OPTIONS /dashboard/reset-state | ip=127.0.0.1 | endpoint=dashboard.reset_state
+[2025-12-25 19:16:35] [INFO] [APP] RES OPTIONS /dashboard/reset-state | status=200 | time=0.001s
+[2025-12-25 19:16:36] [INFO] [APP] REQ POST /dashboard/reset-state | ip=127.0.0.1 | endpoint=dashboard.reset_state
+[2025-12-25 19:16:36] [INFO] [APP] RES POST /dashboard/reset-state | status=200 | time=0.0077s
+[2025-12-25 19:16:36] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:36] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.004s
+[2025-12-25 19:16:36] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:36] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.032s
+[2025-12-25 19:16:39] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:16:39] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:16:39] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:16:39] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:16:42] [INFO] [APP] REQ OPTIONS /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:16:42] [INFO] [APP] RES OPTIONS /trading/start-trading | status=200 | time=0.001s
+[2025-12-25 19:16:43] [INFO] [APP] REQ POST /trading/start-trading | ip=127.0.0.1 | endpoint=trading.start_trading
+[2025-12-25 19:16:43] [INFO] [state_trading] 🚀 start_trading_handler called
+[2025-12-25 19:16:43] [INFO] [state_trading] 🧪 Running eligibility (force=True)
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] 🚀 run_eligibility called | force=True
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] ✓ Loaded 1 stocks for 2025-12-25 from stocks_database.xlsx
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] Stocks for today: [{'symbol': 'IDEA', 'instrument_token': 3677697, 'high': 12.9, 'low': 12.3}]
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] 📦 Loaded 1 stocks
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] 🔥 Force enabled — ignoring cache
+[2025-12-25 19:16:43] [INFO] [eligible_stocks] 🧹 Resetting WebSocket state before eligibility
+[2025-12-25 19:16:43] [INFO] [Web_Socket_Manager] 🔴 WebSocket fully stopped
+[2025-12-25 19:16:44] [INFO] [eligible_stocks] 🔧 Setting up WebSocket (fresh)
+[2025-12-25 19:16:44] [INFO] [Web_Socket_Manager] WS Setup → 0UBRv+7Q9vsOEQhXKmnIu8PCa7GEvKKU0mjrlQ0UEajHxUUME2+0wxEr2bKGt13nnlaYuHrfsng7Zn1ASvoY3ywcJNg5qtfHaFIoLvcRsHgUQKyZLovXKg==&user_id=IL6657
+[2025-12-25 19:16:44] [INFO] [eligible_stocks] ▶ Starting WebSocket thread
+[2025-12-25 19:16:44] [INFO] [Web_Socket_Manager] ▶ Starting WebSocket connection
+[2025-12-25 19:16:44] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (1/20) | connected=False running=True
+[2025-12-25 19:16:44] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (2/20) | connected=False running=True
+[2025-12-25 19:16:44] [INFO] [Web_Socket_Manager] 🟢 WS CONNECTED
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] ⏳ Waiting for WS connection (3/20) | connected=True running=True
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] 🟢 WebSocket connected
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] 📡 Subscribing tokens (INT): [3677697]
+[2025-12-25 19:16:45] [INFO] [Web_Socket_Manager] 📡 Subscribed tokens: [3677697]
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] ⏳ Waiting for ticks...
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] ⏳ Tick wait 1/20 | live_data keys=[3677697]
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] ✅ At least one tick received
+[2025-12-25 19:16:45] [INFO] [eligible_stocks] 🔍 Processing IDEA | token=3677697 | tick_exists=True
+[2025-12-25 19:16:48] [INFO] [eligible_stocks] ✓ Saved eligibility results → eligibility_state.json
+[2025-12-25 19:16:48] [INFO] [eligible_stocks] 🛑 Stopping WebSocket (eligibility cleanup)
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] 🛑 Stopping WebSocket connection...
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] 🔴 WebSocket fully stopped
+[2025-12-25 19:16:48] [INFO] [eligible_stocks] ✅ Eligibility completed successfully
+[2025-12-25 19:16:48] [INFO] [state_trading] 🧪 Eligibility completed | eligible=1
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] WS Setup → 0UBRv+7Q9vsOEQhXKmnIu8PCa7GEvKKU0mjrlQ0UEajHxUUME2+0wxEr2bKGt13nnlaYuHrfsng7Zn1ASvoY3ywcJNg5qtfHaFIoLvcRsHgUQKyZLovXKg==&user_id=IL6657
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] ▶ Starting WebSocket connection
+[2025-12-25 19:16:48] [INFO] [state_trading] ⏳ Waiting for WS (1/20)
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] 🔴 WS CLOSED | code=None reason=None
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] 🟢 WS CONNECTED
+[2025-12-25 19:16:48] [INFO] [state_trading] 🟢 WS Connected
+[2025-12-25 19:16:48] [INFO] [Web_Socket_Manager] 📡 Subscribed tokens: [3677697]
+[2025-12-25 19:16:49] [INFO] [state_trading] ===== MONITOR STARTED =====
+[2025-12-25 19:16:49] [INFO] [APP] RES POST /trading/start-trading | status=200 | time=6.5357s
+[2025-12-25 19:16:52] [INFO] [APP] REQ OPTIONS /trading/stop-trading | ip=127.0.0.1 | endpoint=trading.stop_trading
+[2025-12-25 19:16:52] [INFO] [APP] RES OPTIONS /trading/stop-trading | status=200 | time=0.0021s
+[2025-12-25 19:16:52] [INFO] [APP] REQ POST /trading/stop-trading | ip=127.0.0.1 | endpoint=trading.stop_trading
+[2025-12-25 19:16:52] [INFO] [state_trading] 🛑 stop_trading_handler called
+[2025-12-25 19:16:52] [INFO] [Web_Socket_Manager] 🔴 WebSocket fully stopped
+[2025-12-25 19:16:52] [INFO] [APP] RES POST /trading/stop-trading | status=200 | time=0.0612s
+[2025-12-25 19:16:52] [WARNING] [Web_Socket_Manager] ⚠️ WS subscribe skipped — connected=False kws=False
+[2025-12-25 19:16:54] [INFO] [APP] REQ OPTIONS /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:54] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:16:54] [INFO] [APP] RES OPTIONS /dashboard/get-state-details | status=200 | time=0.002s
+[2025-12-25 19:16:54] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:16:54] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:16:54] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:16:54] [INFO] [APP] REQ GET /dashboard/get-state-details | ip=127.0.0.1 | endpoint=dashboard.get_state_details
+[2025-12-25 19:16:54] [INFO] [APP] RES GET /dashboard/get-state-details | status=200 | time=0.004s
+[2025-12-25 19:16:56] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:16:56] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:16:56] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:16:56] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:17:01] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:17:01] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:17:01] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:17:02] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:17:39] [INFO] [WEB_SOCKET_ENGINE] 🟢 Client connected → /status
+[2025-12-25 19:17:39] [INFO] [WEB_SOCKET_ENGINE] ▶️ start_feed requested → /status
+[2025-12-25 19:17:39] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:17:39] [INFO] [WEB_SOCKET_ENGINE] 🌀 Feed loop started → /status
+[2025-12-25 19:17:40] [INFO] [WEB_SOCKET_ENGINE] ⏸ stop_feed requested → /status
+[2025-12-25 19:17:40] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:17:40] [INFO] [WEB_SOCKET_ENGINE] 🔴 Client disconnected → /status
+[2025-12-25 19:17:40] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed stop signalled → /status
+[2025-12-25 19:17:40] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.007s
+[2025-12-25 19:17:40] [INFO] [WEB_SOCKET_ENGINE] ⛔ Feed loop stopped → /status
+[2025-12-25 19:17:46] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:17:46] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:17:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:17:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:17:56] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:17:56] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0023s
+[2025-12-25 19:18:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:18:06] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:06] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:18:10] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:10] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:18:16] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:16] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:18:20] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:20] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:18:26] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:26] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0011s
+[2025-12-25 19:18:30] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:30] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0019s
+[2025-12-25 19:18:36] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:36] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:18:40] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:18:40] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:19:13] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:19:13] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0019s
+[2025-12-25 19:20:12] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:20:12] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0019s
+[2025-12-25 19:21:13] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:21:13] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0199s
+[2025-12-25 19:21:57] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:21:57] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0035s
+[2025-12-25 19:22:01] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:01] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.007s
+[2025-12-25 19:22:05] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:05] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0009s
+[2025-12-25 19:22:11] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:11] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0327s
+[2025-12-25 19:22:15] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:15] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:22:21] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:21] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:22:25] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:25] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0029s
+[2025-12-25 19:22:31] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:31] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:22:35] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:35] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0025s
+[2025-12-25 19:22:41] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:41] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.006s
+[2025-12-25 19:22:45] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:45] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0021s
+[2025-12-25 19:22:51] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:51] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:22:55] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:22:55] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0315s
+[2025-12-25 19:23:13] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:23:13] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0029s
+[2025-12-25 19:24:12] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:24:12] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0019s
+[2025-12-25 19:25:10] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:10] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0065s
+[2025-12-25 19:25:15] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:15] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:25:21] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:21] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:25:25] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:25] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0023s
+[2025-12-25 19:25:31] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:31] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:25:35] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:35] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0021s
+[2025-12-25 19:25:41] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:41] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0015s
+[2025-12-25 19:25:45] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:45] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0023s
+[2025-12-25 19:25:51] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:51] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0121s
+[2025-12-25 19:25:55] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:25:55] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:26:01] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:01] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:26:05] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:05] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0124s
+[2025-12-25 19:26:11] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:11] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0084s
+[2025-12-25 19:26:44] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:44] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:26:45] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:45] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0029s
+[2025-12-25 19:26:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:26:55] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:26:55] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0041s
+[2025-12-25 19:27:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:27:06] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:06] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0013s
+[2025-12-25 19:27:10] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:10] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0009s
+[2025-12-25 19:27:16] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:16] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0019s
+[2025-12-25 19:27:20] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:20] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:27:26] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:26] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0024s
+[2025-12-25 19:27:30] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:30] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0026s
+[2025-12-25 19:27:36] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:36] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:27:40] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:40] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:27:46] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:46] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:27:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:27:56] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:27:56] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:28:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:28:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0015s
+[2025-12-25 19:28:13] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:28:13] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:29:12] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:29:12] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:30:13] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:30:13] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0021s
+[2025-12-25 19:31:12] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:12] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:31:15] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:15] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.004s
+[2025-12-25 19:31:20] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:20] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0026s
+[2025-12-25 19:31:26] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:26] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0017s
+[2025-12-25 19:31:30] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:30] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0016s
+[2025-12-25 19:31:36] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:36] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0076s
+[2025-12-25 19:31:40] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:40] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.003s
+[2025-12-25 19:31:46] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:46] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0022s
+[2025-12-25 19:31:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0056s
+[2025-12-25 19:31:56] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:31:56] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0036s
+[2025-12-25 19:32:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0037s
+[2025-12-25 19:32:06] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:06] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0033s
+[2025-12-25 19:32:10] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:10] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0041s
+[2025-12-25 19:32:16] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:16] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:32:30] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:30] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0062s
+[2025-12-25 19:32:36] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:36] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0067s
+[2025-12-25 19:32:41] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:41] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.001s
+[2025-12-25 19:32:46] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:46] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0046s
+[2025-12-25 19:32:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0105s
+[2025-12-25 19:32:56] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:32:56] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0051s
+[2025-12-25 19:33:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:33:06] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:06] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0044s
+[2025-12-25 19:33:10] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:10] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0017s
+[2025-12-25 19:33:16] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:16] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0047s
+[2025-12-25 19:33:20] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:20] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s
+[2025-12-25 19:33:26] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:26] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0037s
+[2025-12-25 19:33:30] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:30] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0035s
+[2025-12-25 19:33:37] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:37] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0047s
+[2025-12-25 19:33:40] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:40] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0057s
+[2025-12-25 19:33:45] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:45] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0029s
+[2025-12-25 19:33:50] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:50] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0043s
+[2025-12-25 19:33:55] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:33:55] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.0057s
+[2025-12-25 19:34:00] [INFO] [APP] REQ GET /dashboard/state | ip=127.0.0.1 | endpoint=dashboard.debug_state
+[2025-12-25 19:34:00] [INFO] [APP] RES GET /dashboard/state | status=200 | time=0.002s

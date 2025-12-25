@@ -1,7 +1,6 @@
 import logging
 import os
 import platform
-import time
 from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 from datetime import datetime
 import pytz
@@ -11,11 +10,16 @@ IST = pytz.timezone("Asia/Kolkata")
 
 
 class ISTFormatter(logging.Formatter):
-    """Logging formatter that uses IST timezone"""
+    """Logging formatter that always uses IST (Asia/Kolkata)"""
 
-    def converter(self, timestamp):
-        dt = datetime.fromtimestamp(timestamp, tz=pytz.utc)
-        return dt.astimezone(IST).timetuple()
+    def formatTime(self, record, datefmt=None):
+        dt = datetime.fromtimestamp(record.created, tz=pytz.utc)
+        ist_time = dt.astimezone(IST)
+
+        if datefmt:
+            return ist_time.strftime(datefmt)
+
+        return ist_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def setup_logger(name="app_logger"):
@@ -31,35 +35,42 @@ def setup_logger(name="app_logger"):
 
     log_file = os.path.join(LOG_DIR, "app.log")
 
-    # 🔑 Windows-safe handler
+    # ---------------------------
+    # File Handler
+    # ---------------------------
     if platform.system() == "Windows":
-        handler = RotatingFileHandler(
+        file_handler = RotatingFileHandler(
             log_file,
-            maxBytes=5 * 1024 * 1024,  # 5 MB
+            maxBytes=5 * 1024 * 1024,
             backupCount=5,
             encoding="utf-8"
         )
     else:
-        handler = TimedRotatingFileHandler(
+        file_handler = TimedRotatingFileHandler(
             log_file,
             when="midnight",
             interval=1,
             backupCount=30,
             encoding="utf-8",
-            delay=True
+            delay=True,
+            utc=True  # IMPORTANT: prevents OS timezone bleed
         )
-        handler.suffix = "%Y-%m-%d"
+        file_handler.suffix = "%Y-%m-%d"
 
     formatter = ISTFormatter(
         "[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s"
     )
 
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
 
-    # Console logging
+    # ---------------------------
+    # Console Handler
+    # ---------------------------
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
+
+    logger.propagate = False  # prevent double logging
 
     return logger

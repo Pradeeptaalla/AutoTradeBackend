@@ -49,6 +49,7 @@ def login():
         session["username"] = username
         state["username"] = username
         print(state["username"])
+        kite =get_kite(state["username"])
         TelegramSender.send_message((
                                     "✅ *ZERODHA LOGIN SUCCESS*\n"
                                     "━━━━━━━━━━━━━━━━━━\n"

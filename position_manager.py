@@ -1,6 +1,7 @@
 # position_manager.py
 from datetime import datetime, timedelta, time as dt_time
 import time
+import uuid
 from flask import session
 import pytz
 import threading
@@ -81,30 +82,13 @@ def start_position_monitor_handler():
         return {"success": False, "error": "WebSocket connection failed"}
 
 
-
-    # # Restart WS fresh
-    # # Ensure WebSocket for position monitoring
-    # if not ws_manager.kws:
-    #     logger.info("🔧 Setting up WebSocket for position monitoring")
-    #     ws_manager.setup("PradeepApi", state["enctoken"], state["user_id"])
-
-    # if not ws_manager.running:
-    #     ws_manager.start()
-
-    # # Wait until connected
-    # for i in range(20):
-    #     if ws_manager.connected:
-    #         break
-    #     time.sleep(0.5)
-
-    # logger.info("🟢 WebSocket ready for position monitoring")
-    # print(f" is runinng start_position_monitoring {state["is_running"] }  and {state.get("is_running")}")
-                   
-
+                  
+    run_id = uuid.uuid4().hex
     state["is_running"] = True
+    state["run_id"] = run_id
     _monitor_thread = threading.Thread(
         target=_monitor_position_loop,
-        args=(positions,),
+        args=(positions,run_id,),
         daemon=True
     )
     _monitor_thread.start()
@@ -287,7 +271,7 @@ def _position_status(symbol,  qty_closed, price, reason):
 
 # ----------------------------
 # MAIN POSITION MONITOR LOOP
-def _monitor_position_loop(positions):
+def _monitor_position_loop(positions,run_id):
     active_pos = next((p for p in positions if int(p.get("quantity", 0)) != 0), None)
     logger.info(f"Active Position: {active_pos}")
 
@@ -356,7 +340,7 @@ def _monitor_position_loop(positions):
     last_price = None
     tick_count = 0
     state["current_step"] = "Position Monitioring Started"
-    while state.get("is_running", False):        
+    while state.get("run_id") == run_id and state.get("is_running"):         
         tick_count += 1
 
         tick = state.get("live_data", {}).get(token)
